@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.api_example.BasicAPIClient
+import com.example.api_example.BodyZZY2
 import com.example.api_example.HttpHeaders
 import com.example.api_example.HttpQueryParam
 import kotlinx.coroutines.CoroutineScope
@@ -47,10 +48,17 @@ class MainActivity : AppCompatActivity() {
         val headers = HttpHeaders().getHeaders()
         val queryParam = HttpQueryParam().getParams()
 
+        val postBody = BodyZZY2(
+            "",
+            "",
+            "",
+            ""
+        ).getBody()
+
         binding.btnBanner.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
-                val getData =
-                    apiClient.get("user-module/v2/getAppIdAdUnitsMap", headers, queryParam)
+//                val getData = apiClient.get("user-module/v2/getAppIdAdUnitsMap", headers, queryParam)
+                val getData = apiClient.post("logger/saveAdFailLog",postBody, headers, null)
                 Log.d("API_TAG", "API calling!")
                 Log.d("API_TAG", getData.toString())
             }
