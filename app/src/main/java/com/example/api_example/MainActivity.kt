@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var crackleAdLoader: CrackleAdLoader
+    private lateinit var apiClient : BasicAPIClient
 
 //    private val BASE_URL = "https://api.restful-api.dev/objects"
     private val BASE_URL = "https://crackle.co.in/"
@@ -44,21 +45,20 @@ class MainActivity : AppCompatActivity() {
         CrackleSdk.initialize(this@MainActivity) {}
 
 
-        val apiClient = BasicAPIClient.getInstance(BASE_URL)
-        val headers = HttpHeaders().getHeaders()
-        val queryParam = HttpQueryParam().getParams()
+        apiClient = BasicAPIClient.getInstance(BASE_URL)
+        val headers = HttpHeaders()
+        val queryParam = HttpQueryParam()
 
         val postBody = BodyZZY2(
             "",
-            "",
-            "",
-            ""
-        ).getBody()
+            c= "",
+            d=""
+        )
 
         binding.btnBanner.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
-//                val getData = apiClient.get("user-module/v2/getAppIdAdUnitsMap", headers, queryParam)
-                val getData = apiClient.post("logger/saveAdFailLog",postBody, headers, null)
+//                val getData = getRequest(headers, queryParam)
+                val getData = postRequest(headers, postBody)
                 Log.d("API_TAG", "API calling!")
                 Log.d("API_TAG", getData.toString())
             }
@@ -262,5 +262,17 @@ class MainActivity : AppCompatActivity() {
 //            .build()
 //        crackleAdLoader.loadAd()
 //    }
+
+    private suspend fun getRequest(headers : HttpHeaders, queryParam: HttpQueryParam) : String?{
+        val headerMap = headers.getHeaders()
+        val queryMap = queryParam.getParams()
+        return apiClient.get("user-module/v2/getAppIdAdUnitsMap", headerMap, queryMap)
+    }
+
+    private suspend fun postRequest(headers : HttpHeaders, postBody : BodyZZY2) : String?{
+        val headerMap = headers.getHeaders()
+        val body = postBody.getBody()
+        return apiClient.post("logger/saveAdFailLog",body, headerMap, null)
+    }
 
 }

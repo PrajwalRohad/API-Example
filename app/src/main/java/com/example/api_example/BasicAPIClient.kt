@@ -72,8 +72,8 @@ class BasicAPIClient private constructor(private val baseUrl: String) {
                 Log.d("API_TAG", "requested")
 
                 // Set default headers (Content-Type, Accept, etc.)
-                connection.setRequestProperty("Content-Type", "application/json")
-                connection.setRequestProperty("Accept", "application/json")
+//                connection.setRequestProperty("Content-Type", "application/json")
+//                connection.setRequestProperty("Accept", "application/json")
                 Log.d("API_TAG", "request set")
 
                 // Add custom headers if provided
@@ -106,6 +106,8 @@ class BasicAPIClient private constructor(private val baseUrl: String) {
                     Log.d("API_TAG", "Response OK")
                     val inputStream = BufferedInputStream(connection.inputStream)
                     inputStream.bufferedReader().use { it.readText() }
+
+
                 } else {
                     Log.d("API_TAG", "Response null")
                     null
