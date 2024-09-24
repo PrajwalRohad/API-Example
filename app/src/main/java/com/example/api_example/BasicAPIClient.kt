@@ -71,6 +71,10 @@ class BasicAPIClient private constructor(private val baseUrl: String) {
                 connection.requestMethod = method
                 Log.d("API_TAG", "requested method: $method")
 
+                //Set Timeout
+                connection.connectTimeout = 10000 //10 sec until connection
+                connection.readTimeout = 10000  //10 sec until response
+
                 // Set default headers (Content-Type, Accept, etc.)
                 connection.setRequestProperty("Content-Type", "application/json")
                 connection.setRequestProperty("Accept", "application/json")
