@@ -51,14 +51,15 @@ class MainActivity : AppCompatActivity() {
 
         val postBody = BodyZZY2(
             "",
-            c= "",
-            d=""
+            "",
+            "",
+            ""
         )
 
         binding.btnBanner.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
-//                val getData = getRequest(headers, queryParam)
-                val getData = postRequest(headers, postBody)
+                val getData = getRequest(headers, queryParam)
+//                val getData = postRequest(headers, postBody)
                 Log.d("API_TAG", "API calling!")
                 Log.d("API_TAG", getData.toString())
             }

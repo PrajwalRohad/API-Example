@@ -69,11 +69,11 @@ class BasicAPIClient private constructor(private val baseUrl: String) {
 
                 // Set HTTP method (GET, POST, etc.)
                 connection.requestMethod = method
-                Log.d("API_TAG", "requested")
+                Log.d("API_TAG", "requested method: $method")
 
                 // Set default headers (Content-Type, Accept, etc.)
-//                connection.setRequestProperty("Content-Type", "application/json")
-//                connection.setRequestProperty("Accept", "application/json")
+                connection.setRequestProperty("Content-Type", "application/json")
+                connection.setRequestProperty("Accept", "application/json")
                 Log.d("API_TAG", "request set")
 
                 // Add custom headers if provided
@@ -101,6 +101,7 @@ class BasicAPIClient private constructor(private val baseUrl: String) {
 
                 // Get the response
                 val responseCode = connection.responseCode
+                Log.d("API_TAG", "Response Code: $responseCode")
                 return@withContext if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
                     // Read the response if it's 200 (OK) or 201 (Created)
                     Log.d("API_TAG", "Response OK")
